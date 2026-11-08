@@ -46,6 +46,6 @@ O Sequelize cria as tabelas automaticamente (`sync()` sem `force:true`). O admin
 - É um projeto acadêmico para execução local, não homologado para produção.
 - `express-session` usa o armazenamento padrão em memória, adequado apenas para demonstração local.
 - As imagens ficam em `public/uploads` e são acessíveis por URL pública: **não envie comprovantes reais contendo dados pessoais**. Para uso real, seria necessário armazenamento privado e uma rota autenticada de download.
-- Exclusão por GET segue o exemplo didático das aulas; em produção, use POST/DELETE e proteção CSRF.
+- As operações de criação, edição, exclusão e logout utilizam proteção CSRF. As exclusões e o logout são realizados por requisições POST.
 - O arquivo `.env` e `node_modules` não acompanham o ZIP. Não divulgue suas senhas.
 - Confirme com a professora que o tema financeiro pode substituir o tema culinário do enunciado.
