@@ -1,0 +1,105 @@
+
+<!-- CABEÇALHO -->
+<div class="dashboard-heading">
+  <div>
+    <span class="dashboard-eyebrow">ORGANIZAÇÃO FINANCEIRA</span>
+    <h1>Categorias</h1>
+    <p>Organize suas movimentações por categorias.</p>
+  </div>
+
+  {{#if admin}}
+    <a href="/categoriaCreate" class="btn btn-success">
+      + Nova categoria
+    </a>
+  {{/if}}
+</div>
+
+<!-- LISTAGEM -->
+<div class="card">
+
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <div>
+      <strong>Categorias cadastradas</strong>
+      <div class="text-muted small mt-1">
+        Categorias disponíveis para seus lançamentos
+      </div>
+    </div>
+
+    <span class="category-header-icon">≡</span>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover mb-0">
+
+      <thead>
+        <tr>
+          <th>Categoria</th>
+
+          {{#if admin}}
+            <th class="text-right">Ações</th>
+          {{/if}}
+        </tr>
+      </thead>
+
+      <tbody>
+        {{#each categorias}}
+          <tr>
+            <td>
+              <div class="category-name">
+                <span class="category-icon">▦</span>
+                <strong>{{nome}}</strong>
+              </div>
+            </td>
+
+            {{#if ../admin}}
+              <td>
+                <div class="category-actions">
+
+                  <a
+                    href="/categoriaUpdate/{{id}}"
+                    class="btn btn-sm btn-outline-primary"
+                  >
+                    Editar
+                  </a>
+
+                  <form
+                    action="/categoriaDelete/{{id}}"
+                    method="POST"
+                    onsubmit="return confirm('Excluir categoria?')"
+                    style="display: inline;"
+                  >
+                    <input
+                      type="hidden"
+                      name="_csrf"
+                      value="{{../csrfToken}}"
+                    >
+
+                    <button
+                      type="submit"
+                      class="btn btn-sm btn-outline-danger"
+                    >
+                      Excluir
+                    </button>
+                  </form>
+
+                </div>
+              </td>
+            {{/if}}
+          </tr>
+
+        {{else}}
+          <tr>
+            <td
+              colspan="{{#if admin}}2{{else}}1{{/if}}"
+              class="text-center text-muted py-5"
+            >
+              Nenhuma categoria cadastrada.
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+
+    </table>
+  </div>
+
+</div>

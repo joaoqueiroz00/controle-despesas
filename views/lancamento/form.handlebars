@@ -1,0 +1,174 @@
+
+<!-- CABEÇALHO -->
+<div class="dashboard-heading">
+  <div>
+    <span class="dashboard-eyebrow">CONTROLE FINANCEIRO</span>
+    <h1>{{titulo}}</h1>
+    <p>Preencha as informações da sua movimentação financeira.</p>
+  </div>
+
+  <a href="/lancamentoList" class="btn btn-outline-primary">
+    Voltar aos lançamentos
+  </a>
+</div>
+
+<form action="{{action}}" method="POST"
+      enctype="multipart/form-data">
+      
+  <input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+  <input type="hidden" name="id" value="{{lancamento.id}}">
+
+  <div class="card mb-4">
+    <div class="card-header">
+      <strong>Informações do lançamento</strong>
+      <div class="text-muted small mt-1">
+        Dados principais da receita ou despesa
+      </div>
+    </div>
+
+    <div class="card-body">
+
+      <div class="form-group">
+        <label for="descricao">Descrição do lançamento</label>
+        <input
+          type="text"
+          id="descricao"
+          name="descricao"
+          class="form-control"
+          value="{{lancamento.descricao}}"
+          placeholder="Ex.: Salário, supermercado, conta de luz..."
+          required
+        >
+      </div>
+
+      <div class="form-row">
+
+        <div class="form-group col-md-6">
+          <label for="tipo">Tipo de movimentação</label>
+          <select id="tipo" name="tipo" class="form-control">
+            <option value="despesa">Despesa</option>
+            <option value="receita"
+              {{#if (igual lancamento.tipo 'receita')}}selected{{/if}}>
+              Receita
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group col-md-6">
+          <label for="valor">Valor (R$)</label>
+          <input
+            type="number"
+            id="valor"
+            name="valor"
+            class="form-control"
+            min="0.01"
+            step="0.01"
+            value="{{lancamento.valor}}"
+            placeholder="0,00"
+            required
+          >
+        </div>
+
+      </div>
+
+      <div class="form-row">
+
+        <div class="form-group col-md-6">
+          <label for="data">Data do lançamento</label>
+          <input
+            type="date"
+            id="data"
+            name="data"
+            class="form-control"
+            value="{{lancamento.data}}"
+            required
+          >
+        </div>
+
+        <div class="form-group col-md-6">
+          <label for="categoriaId">Categoria</label>
+          <select
+            id="categoriaId"
+            name="categoriaId"
+            class="form-control"
+            required
+          >
+            <option value="">Selecione uma categoria</option>
+
+            {{#each categorias}}
+              <option
+                value="{{id}}"
+                {{#if (igual id ../lancamento.categoriaId)}}selected{{/if}}
+              >
+                {{nome}}
+              </option>
+            {{/each}}
+
+          </select>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- COMPROVANTE -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <strong>Imagem do comprovante</strong>
+      <div class="text-muted small mt-1">
+        Anexe uma imagem, se desejar
+      </div>
+    </div>
+
+    <div class="card-body">
+
+      <div class="upload-area">
+        <div class="upload-symbol">↑</div>
+
+        <strong>Adicionar imagem</strong>
+
+        <p>
+          Selecione um comprovante no seu computador.
+        </p>
+
+        <input
+          type="file"
+          id="imagem"
+          name="imagem"
+          class="form-control-file"
+          accept="image/jpeg,image/png"
+        >
+
+        <small>Formatos permitidos: JPG e PNG • Máximo de 2 MB</small>
+      </div>
+
+      {{#if lancamento.imagem}}
+        <div class="current-image mt-3">
+          <span>Imagem atualmente cadastrada</span>
+
+          <a href="/uploads/{{lancamento.imagem}}"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="btn btn-sm btn-outline-primary">
+            Visualizar imagem
+          </a>
+        </div>
+      {{/if}}
+
+    </div>
+  </div>
+
+  <!-- AÇÕES -->
+  <div class="form-actions">
+    <a href="/lancamentoList" class="btn btn-outline-secondary">
+      Cancelar
+    </a>
+
+    <button type="submit" class="btn btn-success">
+      Salvar lançamento
+    </button>
+  </div>
+
+</form>

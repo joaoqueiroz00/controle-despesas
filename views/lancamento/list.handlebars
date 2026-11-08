@@ -1,0 +1,245 @@
+
+<!-- CABEÇALHO -->
+<div class="dashboard-heading">
+  <div>
+    <span class="dashboard-eyebrow">CONTROLE FINANCEIRO</span>
+    <h1>Meus lançamentos</h1>
+    <p>Consulte e organize suas receitas e despesas.</p>
+  </div>
+
+  <a href="/lancamentoCreate" class="btn btn-success">
+    + Novo lançamento
+  </a>
+</div>
+
+<!-- FILTROS -->
+<div class="card mb-4">
+  <div class="card-body">
+
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <h5 class="mb-0">Pesquisar lançamentos</h5>
+      <span class="text-muted small">Filtros de consulta</span>
+    </div>
+
+    <form method="GET" action="/lancamentoList">
+      <div class="form-row">
+
+        <div class="col-lg-4 col-md-6 mb-3">
+          <label for="busca">Descrição</label>
+          <input
+            type="text"
+            id="busca"
+            name="busca"
+            class="form-control"
+            value="{{busca}}"
+            placeholder="Ex.: supermercado, salário..."
+          >
+        </div>
+
+        <div class="col-lg-2 col-md-6 mb-3">
+          <label for="tipo">Tipo</label>
+          <select id="tipo" name="tipo" class="form-control">
+            <option value="">Todos</option>
+            <option value="despesa"
+              {{#if (igual tipo 'despesa')}}selected{{/if}}>
+              Despesas
+            </option>
+            <option value="receita"
+              {{#if (igual tipo 'receita')}}selected{{/if}}>
+              Receitas
+            </option>
+          </select>
+        </div>
+
+        <div class="col-lg-2 col-md-6 mb-3">
+          <label for="ordem">Ordenar por</label>
+          <select id="ordem" name="ordem" class="form-control">
+            <option value="data">Data</option>
+            <option value="valor"
+              {{#if (igual ordem 'valor')}}selected{{/if}}>
+              Valor
+            </option>
+          </select>
+        </div>
+
+        <div class="col-lg-2 col-md-6 mb-3">
+          <label for="direcao">Ordem</label>
+          <select id="direcao" name="direcao" class="form-control">
+            <option value="DESC">Decrescente</option>
+            <option value="ASC"
+              {{#if (igual direcao 'ASC')}}selected{{/if}}>
+              Crescente
+            </option>
+          </select>
+        </div>
+
+        <div class="col-lg-2 col-md-12 mb-3">
+          <label class="d-block">&nbsp;</label>
+          <button type="submit" class="btn btn-primary btn-block">
+            Aplicar filtros
+          </button>
+        </div>
+
+      </div>
+    </form>
+
+  </div>
+</div>
+
+<!-- LISTAGEM -->
+<div class="card">
+
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <div>
+      <strong>Histórico de movimentações</strong>
+      <div class="text-muted small mt-1">
+        {{total}} registro(s) encontrado(s)
+      </div>
+    </div>
+
+    <span class="badge badge-light">
+      Página {{pagina}}
+    </span>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover mb-0">
+
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Descrição</th>
+          <th>Tipo</th>
+          <th>Categoria</th>
+          <th>Valor</th>
+          <th>Imagem</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {{#each lancamentos}}
+          <tr>
+
+            <td class="text-nowrap">{{data}}</td>
+
+            <td>
+              <strong>{{descricao}}</strong>
+            </td>
+
+            <td>
+              {{#if (igual tipo 'receita')}}
+                <span class="transaction-badge transaction-income">
+                  Receita
+                </span>
+              {{else}}
+                <span class="transaction-badge transaction-expense">
+                  Despesa
+                </span>
+              {{/if}}
+            </td>
+
+            <td>{{categorium.nome}}</td>
+
+            <td class="text-nowrap">
+              {{#if (igual tipo 'receita')}}
+                <strong class="text-success">
+                  + {{moeda valor}}
+                </strong>
+              {{else}}
+                <strong class="text-danger">
+                  - {{moeda valor}}
+                </strong>
+              {{/if}}
+            </td>
+
+            <td>
+              {{#if imagem}}
+                <a
+                  href="/uploads/{{imagem}}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Visualizar imagem"
+                >
+                  <img
+                    src="/uploads/{{imagem}}"
+                    alt="Imagem do lançamento"
+                    class="transaction-image"
+                  >
+                </a>
+              {{else}}
+                <span class="text-muted">—</span>
+              {{/if}}
+            </td>
+
+            <td>
+              <div class="transaction-actions">
+
+                <a
+                  href="/lancamentoUpdate/{{id}}"
+                  class="btn btn-sm btn-outline-primary"
+                >
+                  Editar
+                </a>
+
+                <form
+                  action="/lancamentoDelete/{{id}}"
+                  method="POST"
+                  onsubmit="return confirm('Excluir lançamento?')"
+                  style="display: inline;"
+                >
+                  <input
+                    type="hidden"
+                    name="_csrf"
+                    value="{{../csrfToken}}"
+                  >
+
+                  <button
+                    type="submit"
+                    class="btn btn-sm btn-outline-danger"
+                  >
+                    Excluir
+                  </button>
+                </form>
+
+              </div>
+            </td>
+
+          </tr>
+
+        {{else}}
+          <tr>
+            <td colspan="7" class="text-center text-muted py-5">
+              Nenhum lançamento encontrado.
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+
+    </table>
+  </div>
+
+  <!-- PAGINAÇÃO -->
+  <div class="transaction-pagination">
+
+    <span class="text-muted small">
+      Página {{pagina}}
+    </span>
+
+    <div>
+      {{#if anterior}}
+        <a href="{{anterior}}" class="btn btn-outline-primary btn-sm">
+          Anterior
+        </a>
+      {{/if}}
+
+      {{#if proxima}}
+        <a href="{{proxima}}" class="btn btn-outline-primary btn-sm">
+          Próxima
+        </a>
+      {{/if}}
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,154 @@
+
+<!-- CABEÇALHO -->
+<div class="dashboard-heading">
+  <div>
+    <span class="dashboard-eyebrow">
+      ADMINISTRAÇÃO DO SISTEMA
+    </span>
+
+    <h1>{{titulo}}</h1>
+
+    <p>
+      Gerencie as informações e permissões
+      de acesso ao sistema.
+    </p>
+  </div>
+
+  <a href="/usuarioList" class="btn btn-outline-primary">
+    Voltar aos usuários
+  </a>
+</div>
+
+<!-- FORMULÁRIO -->
+<form action="{{action}}" method="POST">
+
+  <input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+  <input
+    type="hidden"
+    name="id"
+    value="{{usuario.id}}"
+  >
+
+  <div class="card mb-4">
+
+    <div class="card-header">
+      <strong>Informações da conta</strong>
+
+      <div class="text-muted small mt-1">
+        Configure os dados de acesso do usuário.
+      </div>
+    </div>
+
+    <div class="card-body">
+
+      <!-- LOGIN -->
+      <div class="form-group">
+        <label for="login">Nome de usuário</label>
+
+        <input
+          type="text"
+          id="login"
+          name="login"
+          class="form-control"
+          value="{{usuario.login}}"
+          placeholder="Digite o login do usuário"
+          autocomplete="username"
+          required
+        >
+
+        <small class="form-text text-muted">
+          Este nome será utilizado para entrar no sistema.
+        </small>
+      </div>
+
+      <!-- SENHA -->
+      <div class="form-group">
+        <label for="senha">
+          Senha
+          {{#if usuario}}
+            <span class="text-muted font-weight-normal">
+              (deixe em branco para manter a atual)
+            </span>
+          {{/if}}
+        </label>
+
+        <input
+          type="password"
+          id="senha"
+          name="senha"
+          class="form-control"
+          placeholder="Digite uma senha"
+          autocomplete="new-password"
+          {{#unless usuario}}required{{/unless}}
+        >
+
+        <small class="form-text text-muted">
+          {{#if usuario}}
+            Preencha somente se desejar alterar a senha.
+          {{else}}
+            Defina uma senha para o novo usuário.
+          {{/if}}
+        </small>
+      </div>
+
+      <!-- PERFIL -->
+      <div class="form-group mb-2">
+        <label for="tipo">Perfil de acesso</label>
+
+        <select
+          id="tipo"
+          name="tipo"
+          class="form-control"
+        >
+          <option value="1">
+            Usuário comum
+          </option>
+
+          <option
+            value="2"
+            {{#if (igual usuario.tipo 2)}}selected{{/if}}
+          >
+            Administrador
+          </option>
+        </select>
+
+        <small class="form-text text-muted">
+          Administradores podem gerenciar usuários e
+          categorias. Usuários comuns podem gerenciar
+          seus próprios lançamentos.
+        </small>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- INFORMAÇÃO DE SEGURANÇA -->
+  <div class="user-security-note">
+    <span class="user-security-icon">&#128274;</span>
+
+    <div>
+      <strong>Controle de acesso</strong>
+      <p>
+        As permissões são verificadas pelo servidor.
+        Cada usuário possui acesso aos próprios
+        lançamentos financeiros.
+      </p>
+    </div>
+  </div>
+
+  <!-- BOTÕES -->
+  <div class="form-actions">
+
+    <a href="/usuarioList"
+       class="btn btn-outline-secondary">
+      Cancelar
+    </a>
+
+    <button type="submit" class="btn btn-success">
+      Salvar usuário
+    </button>
+
+  </div>
+
+</form>

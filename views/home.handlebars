@@ -1,0 +1,108 @@
+
+<!-- CABEÇALHO DO DASHBOARD -->
+<div class="dashboard-heading">
+  <div>
+    <span class="dashboard-eyebrow">VISÃO GERAL</span>
+    <h1>Resumo financeiro</h1>
+    <p>Acompanhe suas receitas, despesas e saldo em um só lugar.</p>
+  </div>
+
+  <a href="/lancamentoCreate" class="btn btn-success">
+    + Novo lançamento
+  </a>
+</div>
+
+<!-- INDICADORES FINANCEIROS -->
+<div class="row">
+
+  <div class="col-lg-4 col-md-6 mb-4">
+    <div class="finance-card finance-card-income">
+      <div class="finance-card-top">
+        <span class="finance-card-label">Total de receitas</span>
+        <span class="finance-card-icon">↑</span>
+      </div>
+
+      <div class="finance-card-value text-success">
+        {{moeda receitas}}
+      </div>
+
+      <div class="finance-card-bottom">
+        <span class="finance-card-dot income-dot"></span>
+        Entradas registradas
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4 col-md-6 mb-4">
+    <div class="finance-card finance-card-expense">
+      <div class="finance-card-top">
+        <span class="finance-card-label">Total de despesas</span>
+        <span class="finance-card-icon">↓</span>
+      </div>
+
+      <div class="finance-card-value text-danger">
+        {{moeda despesas}}
+      </div>
+
+      <div class="finance-card-bottom">
+        <span class="finance-card-dot expense-dot"></span>
+        Saídas registradas
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4 col-md-12 mb-4">
+    <div class="finance-card finance-card-balance">
+      <div class="finance-card-top">
+        <span class="finance-card-label">Saldo disponível</span>
+        <span class="finance-card-icon">R$</span>
+      </div>
+
+      <div class="finance-card-value">
+        {{moeda saldo}}
+      </div>
+
+      <div class="finance-card-bottom">
+        <span class="finance-card-dot balance-dot"></span>
+        Receitas menos despesas
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ACESSO RÁPIDO -->
+<div class="dashboard-section-heading">
+  <h2>Acesso rápido</h2>
+  <p>Gerencie suas movimentações financeiras.</p>
+</div>
+
+<div class="row">
+
+  <div class="col-md-6 mb-4">
+    <a href="/lancamentoCreate" class="quick-action-card">
+      <span class="quick-action-icon quick-action-green">+</span>
+
+      <span class="quick-action-content">
+        <strong>Adicionar lançamento</strong>
+        <small>Registre uma nova receita ou despesa.</small>
+      </span>
+
+      <span class="quick-action-arrow">→</span>
+    </a>
+  </div>
+
+  <div class="col-md-6 mb-4">
+    <a href="/lancamentoList" class="quick-action-card">
+      <span class="quick-action-icon quick-action-blue">≡</span>
+
+      <span class="quick-action-content">
+        <strong>Consultar lançamentos</strong>
+        <small>Visualize, filtre e organize seus registros.</small>
+      </span>
+
+      <span class="quick-action-arrow">→</span>
+    </a>
+  </div>
+
+</div>

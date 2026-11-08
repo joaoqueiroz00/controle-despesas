@@ -1,0 +1,133 @@
+
+<!-- TELA DE LOGIN -->
+<div class="login-page">
+
+  <!-- PAINEL DE APRESENTAÇÃO -->
+  <div class="login-presentation">
+
+    <div class="login-brand">
+      <span class="login-brand-icon">M</span>
+
+      <div>
+        <strong>Minhas Finanças</strong>
+        <small>CONTROLE FINANCEIRO</small>
+      </div>
+    </div>
+
+    <div class="login-presentation-content">
+      <span class="login-eyebrow">
+        ORGANIZAÇÃO FINANCEIRA
+      </span>
+
+      <h1>
+        Suas finanças,
+        <span>sob controle.</span>
+      </h1>
+
+      <p>
+        Organize suas receitas e despesas,
+        acompanhe seu saldo e tenha uma
+        visão clara das suas movimentações.
+      </p>
+
+      <div class="login-feature">
+        <span class="login-feature-icon">✓</span>
+        Gerenciamento de receitas e despesas
+      </div>
+
+      <div class="login-feature">
+        <span class="login-feature-icon">✓</span>
+        Resumo financeiro em tempo real
+      </div>
+
+      <div class="login-feature">
+        <span class="login-feature-icon">✓</span>
+        Organização por categorias
+      </div>
+    </div>
+
+    <div class="login-presentation-footer">
+      Projeto acadêmico • Programação Web 2
+    </div>
+
+  </div>
+
+  <!-- PAINEL DE AUTENTICAÇÃO -->
+  <div class="login-form-panel">
+
+    <div class="login-form-container">
+
+      <div class="login-welcome-icon">
+        M
+      </div>
+
+      <span class="login-form-eyebrow">
+        BEM-VINDO DE VOLTA
+      </span>
+
+      <h2>Acesse sua conta</h2>
+
+      <p class="login-form-description">
+        Entre com suas credenciais para acessar
+        seu painel financeiro.
+      </p>
+
+      {{#if erro}}
+        <div class="alert alert-danger" role="alert">
+          {{erro}}
+        </div>
+      {{/if}}
+
+      <form action="/login" method="POST">
+
+      <input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+        <div class="form-group">
+          <label for="login">Nome de usuário</label>
+
+          <input
+            type="text"
+            id="login"
+            name="login"
+            class="form-control"
+            placeholder="Digite seu usuário"
+            autocomplete="username"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="senha">Senha</label>
+
+          <input
+            type="password"
+            id="senha"
+            name="senha"
+            class="form-control"
+            placeholder="Digite sua senha"
+            autocomplete="current-password"
+            required
+          >
+        </div>
+
+        <button type="submit" class="btn login-submit-btn">
+          Entrar no sistema
+          <span>→</span>
+        </button>
+
+      </form>
+
+      <div class="login-security">
+        <span>🔒</span>
+        Acesso restrito a usuários autorizados
+      </div>
+
+    </div>
+
+    <div class="login-form-footer">
+      Minhas Finanças © 2026
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,122 @@
+
+<!-- CABEÇALHO -->
+<div class="dashboard-heading">
+  <div>
+    <span class="dashboard-eyebrow">
+      ADMINISTRAÇÃO DO SISTEMA
+    </span>
+
+    <h1>Gerenciamento de usuários</h1>
+
+    <p>
+      Gerencie os usuários e seus perfis de acesso.
+    </p>
+  </div>
+
+  <a href="/usuarioCreate" class="btn btn-success">
+    + Novo usuário
+  </a>
+</div>
+
+<!-- TABELA DE USUÁRIOS -->
+<div class="card">
+
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <div>
+      <strong>Usuários cadastrados</strong>
+
+      <div class="text-muted small mt-1">
+        Controle de contas e permissões
+      </div>
+    </div>
+
+    <span class="users-header-icon">&#9787;</span>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover mb-0">
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Usuário</th>
+          <th>Perfil de acesso</th>
+          <th class="text-right">Ações</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {{#each usuarios}}
+          <tr>
+
+            <td class="text-muted">
+              #{{id}}
+            </td>
+
+            <td>
+              <div class="user-table-info">
+                <span class="user-table-avatar">
+                  &#9787;
+                </span>
+
+                <strong>{{login}}</strong>
+              </div>
+            </td>
+
+            <td>
+              {{#if (igual tipo 2)}}
+                <span class="user-role-badge role-admin">
+                  Administrador
+                </span>
+              {{else}}
+                <span class="user-role-badge role-common">
+                  Usuário comum
+                </span>
+              {{/if}}
+            </td>
+
+            <td>
+              <div class="user-table-actions">
+
+                <!-- EDITAR USUÁRIO -->
+                <a
+                  href="/usuarioUpdate/{{id}}"
+                  class="btn btn-sm btn-outline-primary"
+                >
+                  Editar
+                </a>
+
+                <!-- EXCLUIR USUÁRIO -->
+                <form
+                  action="/usuarioDelete/{{id}}"
+                  method="POST"
+                  onsubmit="return confirm('Tem certeza que deseja excluir este usuário?')"
+                  style="display: inline;"
+                >
+                <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                  <button
+                    type="submit"
+                    class="btn btn-sm btn-outline-danger"
+                  >
+                    Excluir
+                  </button>
+                </form>
+
+              </div>
+            </td>
+
+          </tr>
+
+        {{else}}
+          <tr>
+            <td colspan="4" class="text-center text-muted py-5">
+              Nenhum usuário cadastrado.
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+
+    </table>
+  </div>
+
+</div>

@@ -1,0 +1,147 @@
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Minhas Finanças | Painel Financeiro</title>
+
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/css/estilo.css">
+</head>
+
+<body class="app-body">
+
+  <div class="app-layout">
+
+    <!-- MENU LATERAL -->
+    <aside class="app-sidebar">
+
+      <a href="/home" class="sidebar-brand">
+        <span class="brand-symbol">M</span>
+
+        <span class="brand-text">
+          <strong>Minhas Finanças</strong>
+          <small>CONTROLE FINANCEIRO</small>
+        </span>
+      </a>
+
+      <div class="sidebar-section-label">
+        MENU PRINCIPAL
+      </div>
+
+      <nav class="sidebar-navigation">
+
+        <a href="/home" class="sidebar-link">
+          <span class="sidebar-icon">&#9638;</span>
+          <span>Visão geral</span>
+        </a>
+
+        <a href="/lancamentoList" class="sidebar-link">
+          <span class="sidebar-icon">&#9776;</span>
+          <span>Lançamentos</span>
+        </a>
+
+        <a href="/lancamentoCreate" class="sidebar-link">
+          <span class="sidebar-icon">&#43;</span>
+          <span>Novo lançamento</span>
+        </a>
+
+        <a href="/categoriaList" class="sidebar-link">
+          <span class="sidebar-icon">&#9672;</span>
+          <span>Categorias</span>
+        </a>
+
+        {{#if admin}}
+          <div class="sidebar-section-label">
+            ADMINISTRAÇÃO
+          </div>
+
+          <a href="/usuarioList" class="sidebar-link">
+            <span class="sidebar-icon">&#9787;</span>
+            <span>Usuários</span>
+          </a>
+        {{/if}}
+
+      </nav>
+
+      <div class="sidebar-footer">
+        <span class="sidebar-footer-label">
+          SISTEMA ACADÊMICO
+        </span>
+
+        <small>Programação Web 2</small>
+      </div>
+
+    </aside>
+
+    <!-- ÁREA PRINCIPAL -->
+    <div class="app-content">
+
+      <header class="app-header">
+
+        <div class="header-heading">
+          <span class="header-eyebrow">
+            PAINEL DE CONTROLE
+          </span>
+
+          <strong>Organize sua vida financeira</strong>
+        </div>
+
+        <div class="header-user">
+
+          <span class="user-avatar">&#9787;</span>
+
+          <span class="user-details">
+            <strong>{{login}}</strong>
+
+            <small>
+              {{#if admin}}
+                Administrador
+              {{else}}
+                Usuário
+              {{/if}}
+            </small>
+          </span>
+
+          <!-- LOGOUT COM PROTEÇÃO CSRF -->
+          <form action="/logout" method="POST" style="margin: 0;">
+            <input
+              type="hidden"
+              name="_csrf"
+              value="{{csrfToken}}"
+            >
+
+            <button type="submit" class="logout-button">
+              Sair
+            </button>
+          </form>
+
+        </div>
+
+      </header>
+
+      <main class="app-main">
+        <div class="container-fluid">
+          {{{body}}}
+        </div>
+      </main>
+
+      <footer class="app-footer">
+        Minhas Finanças &copy; 2026
+        <span>Desenvolvido para Programação Web 2</span>
+      </footer>
+
+    </div>
+
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>
